@@ -1,72 +1,3 @@
-
-
-create table departaments(
-dept_no	varchar(20) PRIMARY KEY,
-dept_name varchar(100) NOT null
-
-);
-
-create table dept_emp(
-emp_no varchar(20) not null,
-dept_no varchar(20) not null,
-primary key (emp_no, dept_no),
-foreign key (emp_no) references employees(emp_no) on delete cascade,
-foreign key (dept_no) references departaments(dept_no) on delete cascade
-);
-
-create table dept_manager(
-dept_no varchar(20) not null,
-emp_no varchar(20) not null,
-primary key (dept_no, emp_no),
-foreign key (dept_no) references departaments(dept_no) on delete cascade,
-foreign key (emp_no) references employees(emp_no) on delete cascade
-);
-create table employees(
-emp_no	varchar(20) primary key,
-emp_title_id varchar(50) not null,
-birth_date	date not null,
-first_name varchar(100),
-last_name varchar(100),	
-sex varchar(10),
-hire_date date not null,
-foreign key (emp_title_id) references titles(title_id) on delete cascade
-);
-
-create table salaries(
-emp_no	varchar(20) primary key,
-salary int not null,
-foreign key (emp_no) references employees(emp_no) on delete cascade
-);
-
-create table titles(
-title_id varchar(50) primary key,
-title varchar(100) not null
-);
-
-select *
-from departaments d 
-;
-
-select *
-from dept_emp de 
-;
-
-select *
-from dept_manager dm 
-;
-
-select *
-from employees e
-;
-
-select *
-from salaries s 
-;
-
-select *
-from titles t 
-;
-
 -- Employee number, last name, first name, sex, and salary of each employee
 
 select e.emp_no, e.last_name, e.first_name ,e.sex, s.salary 
@@ -102,3 +33,15 @@ join dept_emp de on e.emp_no = de.emp_no
 join departaments d on de.dept_no = d.dept_no
 where d.dept_no = 'd007';
 
+--- Each employee in the Sales and Development departments, including their employee number, last name, first name, and department name
+select e.emp_no, d.dept_name , e.last_name , e.first_name
+from employees e 
+join dept_emp de on e.emp_no = de.emp_no
+join departaments d on de.dept_no = d.dept_no
+where d.dept_no = 'd007' or d.dept_no ='d005';
+
+--- Frequency counts, in descending order, of all the employee last names (that is, how many employees share each last name)
+select e.last_name , count(e.last_name)
+from employees e 
+group by e.last_name
+order by count desc;
