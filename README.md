@@ -27,7 +27,7 @@ sql-challenge/
 - Designed an ERD based on the given CSV files.
 - Used QuickDBD to visualize table relationships.
 - Defined primary keys, foreign keys, and constraints.
-- ![Entity Relationship Diagram](ERD.png)
+ ![Entity Relationship Diagram](ERD.png)
 ---
 
 ## Data Engineering
